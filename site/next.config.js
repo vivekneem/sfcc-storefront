@@ -7,6 +7,7 @@ const isShopify = provider === '@vercel/commerce-shopify'
 const isSaleor = provider === '@vercel/commerce-saleor'
 const isSwell = provider === '@vercel/commerce-swell'
 const isVendure = provider === '@vercel/commerce-vendure'
+const isSfcc = provider === '@vercel/commerce-sfcc'
 
 module.exports = withCommerceConfig({
   commerce,
@@ -16,7 +17,7 @@ module.exports = withCommerceConfig({
   },
   rewrites() {
     return [
-      (isBC || isShopify || isSwell || isVendure || isSaleor) && {
+      (isSfcc || isBC || isShopify || isSwell || isVendure || isSaleor) && {
         source: '/checkout',
         destination: '/api/checkout',
       },

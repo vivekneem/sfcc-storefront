@@ -22,6 +22,7 @@ export async function getGuestUserAuthToken(): Promise<Customer.ShopperLogin.Tok
   const credentials = `${process.env.SFCC_CLIENT_ID}:${process.env.SFCC_CLIENT_SECRET}`
   const base64data = Buffer.from(credentials).toString('base64')
   const headers = { Authorization: `Basic ${base64data}` }
+  console.log('headers:', headers)
   const client = new Customer.ShopperLogin(clientConfig)
 
   return await client.getAccessToken({
@@ -34,6 +35,7 @@ export async function getGuestUserAuthToken(): Promise<Customer.ShopperLogin.Tok
 
 export const getConfigAuth = async () => {
   const shopperToken = await getGuestUserAuthToken()
+  console.log('shopperToken: ', shopperToken)
   const configAuth = {
     ...clientConfig,
     headers: { authorization: `Bearer ${shopperToken.access_token}` },
